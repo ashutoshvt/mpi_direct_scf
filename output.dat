@@ -1,0 +1,114 @@
+    -----------------------------------------------------------------------
+          PSI4: An Open-Source Ab Initio Electronic Structure Package
+                              PSI 4.0 Driver
+
+               Git: Rev {working_psi4} 2e307469882ac8cf1b9b140cf8b9f1a0f5fa76de
+
+    J. M. Turney, A. C. Simmonett, R. M. Parrish, E. G. Hohenstein,
+    F. A. Evangelista, J. T. Fermann, B. J. Mintz, L. A. Burns, J. J. Wilke,
+    M. L. Abrams, N. J. Russ, M. L. Leininger, C. L. Janssen, E. T. Seidl,
+    W. D. Allen, H. F. Schaefer, R. A. King, E. F. Valeev, C. D. Sherrill,
+    and T. D. Crawford, WIREs Comput. Mol. Sci. 2, 556-565 (2012)
+    (doi: 10.1002/wcms.93)
+
+                         Additional Contributions by
+    A. E. DePrince, M. Saitow, U. Bozkaya, A. Yu. Sokolov
+    -----------------------------------------------------------------------
+
+
+    Psi4 started on: 05-20-2015  02:59:49 AM EDT
+
+    Process ID:  57329
+    PSI4DATADIR: /home/akumar1/installed/parallel_psi4/share/psi
+    Memory level set to 256.000 MB
+
+  ==> Input File <==
+
+--------------------------------------------------------------------------
+
+# PYTHONPATH must include directory above plugin directory.
+#     Define either externally or here, then import plugin.
+sys.path.insert(0, './..')
+import mpi_direct_scf
+
+molecule {
+O
+H 1 R
+H 1 R 2 A
+
+R = .9
+A = 104.5
+symmetry c1
+}
+
+set {
+  basis sto-3g
+}
+
+set mpi_direct_scf {
+  print 1
+  maxiter 42
+  conv 1e-13  
+  #structure quartet
+  guess sad  
+  structure pairs 
+  distribution static
+  #distribution dynamic 
+}
+
+energy('mpi_direct_scf')
+
+mpi_direct_scf.exampleFN()
+
+--------------------------------------------------------------------------
+/home/akumar1/improved_parallel_project/mpi_direct_scf/mpi_direct_scf.so loaded.
+Reading options from the MPI_DIRECT_SCF block
+Calling plugin mpi_direct_scf.so.
+    Molecular point group: c1
+    Full point group: C2v
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z       
+    ------------   -----------------  -----------------  -----------------
+           O          0.000000000000     0.000000000000    -0.061664597379
+           H          0.000000000000    -0.711620616369     0.489330954652
+           H          0.000000000000     0.711620616369     0.489330954652
+
+
+    Nuclear repulsion energy:       9.77940614
+
+
+ 1     -71.471350579158      46.836880141038       0.271054617972 
+ 2     -75.076773676868      -3.605423097710       0.016007979151 
+ 3     -74.940201116463       0.136572560405       0.004068362747 
+ 4     -74.946272095393      -0.006070978930       0.001502374280 
+ 5     -74.945425751215       0.000846344177       0.000581424703 
+ 6     -74.945196792367       0.000228958848       0.000232973609 
+ 7     -74.945093670948       0.000103121419       0.000094863051 
+ 8     -74.945051110291       0.000042560656       0.000038952221 
+ 9     -74.945033474069       0.000017636222       0.000016065229 
+ 10     -74.945026173634       0.000007300435       0.000006641799 
+ 11     -74.945023150157       0.000003023477       0.000002749562 
+ 12     -74.945021897445       0.000001252712       0.000001139113 
+ 13     -74.945021378239       0.000000519206       0.000000472123 
+ 14     -74.945021162999       0.000000215240       0.000000195726 
+ 15     -74.945021073758       0.000000089242       0.000000081152 
+ 16     -74.945021036754       0.000000037004       0.000000033650 
+ 17     -74.945021021409       0.000000015344       0.000000013954 
+ 18     -74.945021015046       0.000000006363       0.000000005786 
+ 19     -74.945021012408       0.000000002639       0.000000002400 
+ 20     -74.945021011313       0.000000001094       0.000000000995 
+ 21     -74.945021010860       0.000000000454       0.000000000413 
+ 22     -74.945021010671       0.000000000188       0.000000000171 
+ 23     -74.945021010594       0.000000000078       0.000000000071 
+ 24     -74.945021010561       0.000000000033       0.000000000029 
+ 25     -74.945021010548       0.000000000013       0.000000000012 
+ 26     -74.945021010542       0.000000000006       0.000000000005 
+ 27     -74.945021010540       0.000000000002       0.000000000002 
+ 28     -74.945021010539       0.000000000001       0.000000000001 
+ 29     -74.945021010538       0.000000000000       0.000000000000 
+ 30     -74.945021010538       0.000000000000       0.000000000000 
+ 31     -74.945021010538       0.000000000000       0.000000000000 
+ 32     -74.945021010538       0.000000000000       0.000000000000 
+*** PSI4 exiting successfully. Buy a developer a beer!

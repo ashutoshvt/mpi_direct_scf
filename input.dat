@@ -1,0 +1,35 @@
+
+# PYTHONPATH must include directory above plugin directory.
+#     Define either externally or here, then import plugin.
+sys.path.insert(0, './..')
+import mpi_direct_scf
+
+molecule {
+O
+H 1 R
+H 1 R 2 A
+
+R = .9
+A = 104.5
+symmetry c1
+}
+
+set {
+  basis sto-3g
+}
+
+set mpi_direct_scf {
+  print 1
+  maxiter 42
+  conv 1e-13  
+  #structure quartet
+  guess sad  
+  structure pairs 
+  distribution static
+  #distribution dynamic 
+}
+
+energy('mpi_direct_scf')
+
+mpi_direct_scf.exampleFN()
+
